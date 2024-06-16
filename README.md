@@ -4,7 +4,7 @@
 
 ### Docker ビルド
 
-1. `git clone`
+1. `git clone {リンクURL}`
 2. `docker compose up -d --build`
 
 ＊MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて `docker-compose.yml` ファイルを編集してください。
