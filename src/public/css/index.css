@@ -1,0 +1,11 @@
+.header-nav__item {
+    height: 100%;
+}
+
+.header-nav__item .form {
+    height: 100%;
+}
+
+.header-nav__item .form .header-nav__button {
+    height: 100%;
+}
