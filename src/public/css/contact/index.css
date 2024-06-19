@@ -1,0 +1,140 @@
+.contact-form-container {
+    max-width: 972px;
+    margin: 0 auto;
+    color: rgba(139, 121, 105, 1);
+}
+
+.contact-form-title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 35px;
+    color: rgba(139, 121, 105, 1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    width: 30%;
+}
+
+.form-group div {
+    width: 70%;
+    flex: 1;
+}
+
+.required {
+    color: red;
+}
+
+input,
+#inquiry_type,
+#inquiry_content {
+    color: rgba(139, 121, 105, 1);
+    background: rgba(244, 244, 244, 1);
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.name-fields,
+.phone-fields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-spacer,
+.phone-separator {
+    margin: 0 20px;
+}
+
+.gender-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.gender-options input[type="radio"] {
+    display: none;
+}
+
+.gender-options label {
+    position: relative;
+    padding-left: 50px;
+    cursor: pointer;
+    width: 20%;
+}
+
+.gender-options label::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid rgba(139, 121, 105, 1);
+    transform: translateY(-50%);
+    margin-left: 20px;
+}
+
+.gender-options input[type="radio"]:checked + label::before {
+    background: rgba(139, 121, 105, 1);
+}
+
+.inquiry_fields {
+    position: relative;
+}
+
+.inquiry_fields::after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    right: 53%;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-top: 12px solid rgba(139, 121, 105, 0.6);
+}
+
+.contact-form-container select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#inquiry_type {
+    width: 50%;
+    color: rgba(139, 121, 105, 0.6);
+}
+
+.contact-form-container textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.form-group-submit {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    position: relative;
+}
+
+.contact-form-container button {
+    margin: 20px auto;
+    padding: 11px 45px;
+    background: rgba(130, 117, 106, 1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form-container button:hover {
+    background-color: #333;
+}

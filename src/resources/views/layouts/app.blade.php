@@ -13,35 +13,43 @@
 </head>
 
 <body>
+  @if (!Request::is('contact/thanks'))
   <header class="header">
     <div class="header__inner">
       <a class="header__logo" href="/">
         FashionablyLate
       </a>
+      @if (Auth::check())
       <nav>
         <ul class="header-nav">
-          @if (Auth::check())
           <li class="header-nav__item">
             <form class="form" action="logout" method="post">
               @csrf
               <button class="header-nav__button">Logout</button>
             </form>
           </li>
-          @else
-          @if (Request::is('login'))
+        </ul>
+      </nav>
+      @elseif (Request::is('login'))
+      <nav>
+        <ul class="header-nav">
           <li class="header-nav__item">
             <a class="header-nav__link button" href="/register">register</a>
           </li>
-          @elseif (Request::is('register'))
+        </ul>
+      </nav>
+      @elseif (Request::is('register'))
+      <nav>
+        <ul class="header-nav">
           <li class="header-nav__item">
             <a class="header-nav__link button" href="/login">login</a>
           </li>
-          @endif
-          @endif
         </ul>
       </nav>
+      @endif
     </div>
   </header>
+  @endif
 
   <main>
     @yield('content')

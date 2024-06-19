@@ -1,0 +1,34 @@
+.thanks-container {
+    margin: 0 auto;
+    width: 90%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../image/ThankYou.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: rgba(139, 121, 105, 1);
+}
+
+.message {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.to-home-button {
+    background-color: rgba(139, 121, 105, 1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Inika", serif;
+}
