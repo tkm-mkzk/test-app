@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function () {
-    Route::get('/admin', [AuthController::class, 'admin']);
+// Route::middleware('auth')->group(function () {
+//     Route::get('/admin', [AuthController::class, 'admin']);
+// });
+
+Route::get('/admin', function () {
+    return view('admin');
 });
 
 Route::get('/', [ContactController::class, 'index']);
