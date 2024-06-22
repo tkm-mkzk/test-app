@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Contact;
@@ -14,7 +15,7 @@ class ContactController extends Controller
         return view('index', compact('categories'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(ContactRequest $request)
     {
         // 電話番号の結合
         $tel = $request->input('phone1') . $request->input('phone2') . $request->input('phone3');
@@ -35,12 +36,12 @@ class ContactController extends Controller
         return view('confirm', compact('contact'));
     }
 
-    public function fix(Request $request)
+    public function fix()
     {
         return redirect()->route('contacts.index')->withInput(session('contact'));
     }
 
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
         $contact = $request->only(['first_name', 'last_name', 'gender', 'email', 'tel', 'address', 'building', 'category_id', 'detail']);
         Contact::create($contact);
