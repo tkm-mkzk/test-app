@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/contact/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
 @section('content')
 <div class="contact-form-container">
   <div class="contact-form-title">Contact</div>
-  <form>
+  <form action="/contacts/confirm" method="post">
     @csrf
     <div class="form-group">
       <label for="first_name">お名前 <span class="required">※</span></label>
@@ -20,11 +20,11 @@
     <div class="form-group">
       <label for="gender">性別 <span class="required">※</span></label>
       <div class="gender-options">
-        <input type="radio" id="male" name="gender" value="male" required>
+        <input type="radio" id="male" name="gender" value=0 required>
         <label for="male">男性</label>
-        <input type="radio" id="female" name="gender" value="female">
+        <input type="radio" id="female" name="gender" value=1>
         <label for="female">女性</label>
-        <input type="radio" id="other" name="gender" value="other">
+        <input type="radio" id="other" name="gender" value=2>
         <label for="other">その他</label>
       </div>
     </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="phone">電話番号 <span class="required">※</span></label>
+      <label for="phone1">電話番号 <span class="required">※</span></label>
       <div class="phone-fields">
         <input type="text" id="phone1" name="phone1" placeholder="080" required>
         <span class="phone-separator">-</span>
@@ -43,6 +43,9 @@
         <span class="phone-separator">-</span>
         <input type="text" id="phone3" name="phone3" placeholder="5678" required>
       </div>
+    </div>
+    <div class="form-group" style="display:none;">
+      <input type="hidden" id="tel" name="tel">
     </div>
     <div class="form-group">
       <label for="address">住所 <span class="required">※</span></label>
@@ -57,9 +60,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="inquiry_type">お問い合わせの種類 <span class="required">※</span></label>
+      <label for="category_id">お問い合わせの種類 <span class="required">※</span></label>
       <div class="inquiry_fields">
-        <select id="inquiry_type" name="inquiry_type" required>
+        <select id="category_id" name="category_id" required>
           <option value="" disabled selected>選択してください</option>
           <option value="type1">タイプ1</option>
           <option value="type2">タイプ2</option>
@@ -70,11 +73,11 @@
     <div class="form-group">
       <label for="inquiry_content">お問い合わせ内容 <span class="required">※</span></label>
       <div>
-        <textarea id="inquiry_content" name="inquiry_content" placeholder="お問い合わせ内容をご記載ください" required></textarea>
+        <textarea id="inquiry_content" name="detail" placeholder="お問い合わせ内容をご記載ください" required></textarea>
       </div>
     </div>
     <div class="form-group form-group-submit">
-      <button type="submit">確認画面</button>
+      <button id="submit-button" type="submit">確認画面</button>
     </div>
   </form>
 </div>
