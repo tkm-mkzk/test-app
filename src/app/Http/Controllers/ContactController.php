@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 
@@ -9,7 +10,8 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $categories = Category::all();
+        return view('index', compact('categories'));
     }
 
     public function confirm(Request $request)
@@ -19,10 +21,23 @@ class ContactController extends Controller
         // 結合した電話番号をフォームデータに追加
         $request->merge(['tel' => $tel]);
 
-        $contact = $request->only(['first_name', 'last_name', 'gender', 'email', 'tel', 'address', 'building', 'category_id', 'detail']);
+        $contact = $request->only(['first_name', 'last_name', 'gender', 'email', 'phone1', 'phone2', 'phone3', 'tel', 'address', 'building', 'category_id', 'detail']);
         $contact['full_name'] = $contact['last_name'] . '　' . $contact['first_name'];
 
+        $genders = ['男性', '女性', 'その他'];
+        $contact['gender_text'] = $genders[$contact['gender']];
+
+        $category = Category::findOrFail($contact['category_id']);
+        $contact['category_content'] = $category->content;
+
+        session()->flash('contact', $contact);
+
         return view('confirm', compact('contact'));
+    }
+
+    public function fix(Request $request)
+    {
+        return redirect()->route('contacts.index')->withInput(session('contact'));
     }
 
     public function store(Request $request)
@@ -41,7 +56,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::with('category')->findOrFail($id);
-        $contact->gender_text = $contact->gender_text;  // Optional: to ensure gender_text is included
+        $contact->gender_text = $contact->gender_text;
         return response()->json($contact);
     }
 }

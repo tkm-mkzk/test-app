@@ -19,7 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'admin']);
 });
 
-Route::get('/', [ContactController::class, 'index']);
+Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
 Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
+Route::get('/contacts/fix', [ContactController::class, 'fix'])->name('contacts.fix');
 Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/contacts/{id}', [ContactController::class, 'show']);

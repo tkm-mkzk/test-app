@@ -32,7 +32,8 @@
 
 input,
 #inquiry_type,
-#inquiry_content {
+#inquiry_content,
+#category_id {
     color: rgba(139, 121, 105, 1);
     background: rgba(244, 244, 244, 1);
     padding: 10px 20px;
@@ -107,7 +108,7 @@ input,
     appearance: none;
 }
 
-#inquiry_type {
+#category_id {
     width: 50%;
     color: rgba(139, 121, 105, 0.6);
 }

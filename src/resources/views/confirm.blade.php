@@ -20,7 +20,7 @@
     <div class="form-group">
       <label for="gender">性別</label>
       <div class="gender-options">
-        <div>{{ $contact->gender_text }}</div>
+        <div>{{ $contact['gender_text'] }}</div>
         <input type="hidden" name="gender" value="{{ $contact['gender'] }}" />
       </div>
     </div>
@@ -36,6 +36,9 @@
       <div class="phone-fields">
         <div>{{ $contact['tel'] }}</div>
         <input type="hidden" name="tel" value="{{ $contact['tel'] }}" />
+        <input type="hidden" name="phone1" value="{{ $contact['phone1'] }}" />
+        <input type="hidden" name="phone2" value="{{ $contact['phone2'] }}" />
+        <input type="hidden" name="phone3" value="{{ $contact['phone3'] }}" />
       </div>
     </div>
     <div class="form-group">
@@ -55,7 +58,7 @@
     <div class="form-group">
       <label for="category_id">お問い合わせの種類</label>
       <div class="inquiry_fields">
-        <div>{{ $contact['category_id'] }}</div>
+        <div>{{ $contact['category_content'] }}</div>
         <input type="hidden" name="category_id" value="{{ $contact['category_id'] }}" />
       </div>
     </div>
@@ -68,7 +71,7 @@
     </div>
     <div class="form-group-submit">
       <button type="submit">送信</button>
-      <a href="/" class="form-group-fix">修正</a>
+      <a href="{{ route('contacts.fix') }}" class="form-group-fix">修正</a>
     </div>
   </form>
 </div>
