@@ -26,11 +26,11 @@
     <div class="form-group">
       <label for="gender">性別 <span class="required">※</span></label>
       <div class="gender-options">
-        <input type="radio" id="male" name="gender" value="0" {{ old('gender') === 0 ? 'checked' : '' }}>
+        <input type="radio" id="male" name="gender" value='0' {{ old('gender') === '0' ? 'checked' : '' }}>
         <label for="male">男性</label>
-        <input type="radio" id="female" name="gender" value="1" {{ old('gender') === 1 ? 'checked' : '' }}>
+        <input type="radio" id="female" name="gender" value='1' {{ old('gender') === '1' ? 'checked' : '' }}>
         <label for="female">女性</label>
-        <input type="radio" id="other" name="gender" value="2" {{ old('gender') === 2 ? 'checked' : '' }}>
+        <input type="radio" id="other" name="gender" value='2' {{ old('gender') === '2' ? 'checked' : '' }}>
         <label for="other">その他</label>
       </div>
     </div>
