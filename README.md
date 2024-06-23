@@ -26,7 +26,7 @@
 
 ## ER 図
 
-![](er.drawio.svg)
+![er.drawio.png](./er.drawio.png)
 
 ## URL
 
