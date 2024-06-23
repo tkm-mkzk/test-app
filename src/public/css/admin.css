@@ -91,6 +91,7 @@
     color: rgba(139, 121, 105, 1);
     font-size: 18px;
     padding: 5px 10px;
+    cursor: pointer;
 }
 
 .admin-table {

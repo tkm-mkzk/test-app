@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'admin'])->name('admin.search');
+    Route::get('/admin/export', [ContactController::class, 'export'])->name('admin.export');
 });
 
 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');

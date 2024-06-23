@@ -6,6 +6,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Response;
 
 class ContactController extends Controller
 {
@@ -93,5 +94,53 @@ class ContactController extends Controller
         $contact->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Contact deleted successfully']);
+    }
+
+    public function export(Request $request)
+    {
+        $query = Contact::query();
+
+        if ($request->filled('name_or_email')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->name_or_email . '%')
+                    ->orWhere('last_name', 'like', '%' . $request->name_or_email . '%')
+                    ->orWhere('email', 'like', '%' . $request->name_or_email . '%');
+            });
+        }
+
+        if ($request->filled('gender') && $request->gender !== '') {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        $contacts = $query->with('category')->get();
+
+        $filename = "contacts_" . now()->format('Ymd_His') . ".csv";
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['お名前', '性別', 'メールアドレス', '電話番号', '住所', '建物名', 'お問い合わせの種類', 'お問い合わせ内容']);
+
+        foreach ($contacts as $contact) {
+            fputcsv($handle, [
+                $contact->first_name . ' ' . $contact->last_name,
+                $contact->gender_text,
+                $contact->email,
+                $contact->tel,
+                $contact->address,
+                $contact->building,
+                $contact->category->content,
+                $contact->detail,
+            ]);
+        }
+
+        fclose($handle);
+
+        return Response::download($filename)->deleteFileAfterSend(true);
     }
 }

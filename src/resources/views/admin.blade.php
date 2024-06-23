@@ -42,7 +42,13 @@
   </div>
 
   <div class="action-container">
-    <button class="export-button">エクスポート</button>
+    <form action="{{ route('admin.export') }}" method="GET" id="export-form">
+      <input type="hidden" name="name_or_email" value="{{ request('name_or_email') }}">
+      <input type="hidden" name="gender" value="{{ request('gender') }}">
+      <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+      <input type="hidden" name="date" value="{{ request('date') }}">
+      <button type="submit" class="export-button">エクスポート</button>
+    </form>
     <div class="pagination-container">
       {{ $contacts->appends(request()->query())->links() }}
     </div>
