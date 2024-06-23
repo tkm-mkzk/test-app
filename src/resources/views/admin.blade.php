@@ -9,40 +9,44 @@
 <div class="admin-container">
   <div class="admin-title">Admin</div>
   <div class="search-container">
-    <div class="search__name-and-email-fields">
-      <input type="text" placeholder="名前やメールアドレスを入力してください">
-    </div>
-    <div class="search__gender-fields">
-      <select>
-        <option value="">性別</option>
-        <option value=0>男性</option>
-        <option value=1>女性</option>
-        <option value=2>その他</option>
-      </select>
-    </div>
-    <div class="search__inquiry-fields">
-      <select>
-        <option>お問い合わせの種類</option>
-      </select>
-    </div>
-    <div class="search__day">
-      <input type="text" id="date-picker" placeholder="年/月/日">
-    </div>
-    <div class="search-button-fields">
-      <button class="search-button">検索</button>
-    </div>
-    <div class="reset-button-fields">
-      <button class="reset-button">リセット</button>
-    </div>
+    <form class="search-form" action="{{ route('admin.search') }}" method="GET" id="search-form">
+      <div class="search__name-and-email-fields">
+        <input type="text" name="name_or_email" placeholder="名前やメールアドレスを入力してください" value="{{ request('name_or_email') }}">
+      </div>
+      <div class="search__gender-fields">
+        <select name="gender">
+          <option value="" {{ request('gender') === '' ? 'selected' : '' }}>性別</option>
+          <option value="0" {{ request('gender') == "0" ? 'selected' : '' }}>男性</option>
+          <option value="1" {{ request('gender') == "1" ? 'selected' : '' }}>女性</option>
+          <option value="2" {{ request('gender') == "2" ? 'selected' : '' }}>その他</option>
+        </select>
+      </div>
+      <div class="search__inquiry-fields">
+        <select name="category_id">
+          <option value="">お問い合わせの種類</option>
+          @foreach ($categories as $category)
+          <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->content }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="search__day">
+        <input type="text" id="date-picker" name="date" placeholder="年/月/日" value="{{ request('date') }}">
+      </div>
+      <div class="search-button-fields">
+        <button type="submit" class="search-button">検索</button>
+      </div>
+      <div class="reset-button-fields">
+        <button type="button" class="reset-button" id="reset-button">リセット</button>
+      </div>
+    </form>
   </div>
 
   <div class="action-container">
     <button class="export-button">エクスポート</button>
     <div class="pagination-container">
-      {{ $contacts->links() }}
+      {{ $contacts->appends(request()->query())->links() }}
     </div>
   </div>
-
 
   <table class="admin-table">
     <thead>
@@ -136,11 +140,13 @@
     const modal = document.getElementById('detail-modal');
     const detailButtons = document.querySelectorAll('.detail-button');
     const closeButton = document.querySelector('.close-button');
+    const deleteButton = document.querySelector('.modal-footer .delete-button');
+    let currentContactId;
 
     detailButtons.forEach(button => {
       button.addEventListener('click', function() {
-        const contactId = this.dataset.id;
-        fetch(`/contacts/${contactId}`)
+        currentContactId = this.dataset.id;
+        fetch(`/contacts/${currentContactId}`)
           .then(response => response.json())
           .then(data => {
             document.getElementById('modal-name').innerText = `${data.first_name} ${data.last_name}`;
@@ -167,6 +173,35 @@
       if (event.target == modal) {
         modal.style.display = 'none';
       }
+    });
+
+    deleteButton.addEventListener('click', function() {
+      if (confirm('本当に削除しますか？')) {
+        fetch(`/contacts/${currentContactId}`, {
+            method: 'DELETE',
+            headers: {
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              location.reload(); // 成功した場合、ページをリロードしてリストを更新
+            } else {
+              alert('削除に失敗しました。');
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting contact:', error);
+            alert('削除に失敗しました。');
+          });
+      }
+    });
+
+    document.getElementById('reset-button').addEventListener('click', function() {
+      document.getElementById('search-form').reset();
+      window.location.href = "{{ route('admin.search') }}";
     });
   });
 </script>

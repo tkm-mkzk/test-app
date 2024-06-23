@@ -48,16 +48,50 @@ class ContactController extends Controller
         return view('thanks');
     }
 
-    public function admin()
+    public function admin(Request $request)
     {
-        $contacts = Contact::with('category')->paginate(7);
-        return view('admin', compact('contacts'));
+        $query = Contact::query();
+
+        if ($request->filled('name_or_email')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->name_or_email . '%')
+                    ->orWhere('last_name', 'like', '%' . $request->name_or_email . '%')
+                    ->orWhere('email', 'like', '%' . $request->name_or_email . '%');
+            });
+        }
+
+        if ($request->filled('gender') && $request->gender !== '') {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        $contacts = $query->with('category')->paginate(7)->appends($request->all());
+
+        $categories = Category::all();
+
+        return view('admin', compact('contacts', 'categories'));
     }
+
 
     public function show($id)
     {
         $contact = Contact::with('category')->findOrFail($id);
         $contact->gender_text = $contact->gender_text;
         return response()->json($contact);
+    }
+
+    public function destroy($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Contact deleted successfully']);
     }
 }

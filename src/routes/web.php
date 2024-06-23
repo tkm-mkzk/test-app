@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', [ContactController::class, 'admin']);
+    Route::get('/admin', [ContactController::class, 'admin'])->name('admin.search');
 });
 
 Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
@@ -24,3 +24,4 @@ Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
 Route::get('/contacts/fix', [ContactController::class, 'fix'])->name('contacts.fix');
 Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/contacts/{id}', [ContactController::class, 'show']);
+Route::delete('contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');

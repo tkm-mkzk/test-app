@@ -33,7 +33,6 @@ body {
     width: 100px;
     background: rgba(240, 240, 240, 0.6);
     border: 1px solid #8b7969;
-    border-radius: 3px;
 }
 
 .header-nav__link,
@@ -47,4 +46,10 @@ body {
     border: none;
     background: transparent;
     cursor: pointer;
+    height: 100%;
+}
+
+.header-nav__item,
+.form {
+    height: 100%;
 }
