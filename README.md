@@ -20,9 +20,13 @@
 
 ## 使用技術
 
-- PHP 8.0
-- Laravel 10.0
-- MySQL 8.0
+- PHP 7.4.9
+- Laravel 8.83.27
+- MySQL 8.0.26
+
+## ER 図
+
+![](er.drawio.svg)
 
 ## URL
 
