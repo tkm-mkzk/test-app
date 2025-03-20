@@ -37,16 +37,15 @@ composer install
 
 ```bash
 cp .env.example .env
+php artisan key:generate
 ```
 
 4. データベースの設定
 
 ```bash
-php artisan key:generate
+php artisan migrate
+php artisan db:seed
 ```
-
-5. `php artisan migrate`
-6. `php artisan db:seed`
 
 ## 使用技術
 
