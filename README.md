@@ -21,7 +21,12 @@ docker compose up -d --build
 
 ### Laravel 環境構築
 
-1. `docker-compose exec php bash`
+1. PHP コンテナに入る
+
+```bash
+docker-compose exec php bash
+```
+
 2. `composer install`
 3. `cp .env.example .env`
 4. `php artisan key:generate`
