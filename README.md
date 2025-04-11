@@ -4,8 +4,18 @@
 
 ### Docker ビルド
 
-1. `git clone {リンクURL}`
-2. `docker compose up -d --build`
+1. リポジトリをクローン
+
+```bash
+git clone https://github.com/example/contact-form.git
+cd contact-form
+```
+
+2. Docker コンテナのビルドと起動
+
+```bash
+docker compose up -d --build
+```
 
 ＊MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて `docker-compose.yml` ファイルを編集してください。
 
