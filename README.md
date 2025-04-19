@@ -27,7 +27,12 @@ docker compose up -d --build
 docker-compose exec php bash
 ```
 
-2. `composer install`
+2. 依存パッケージのインストール
+
+```bash
+composer install
+```
+
 3. `cp .env.example .env`
 4. `php artisan key:generate`
 5. `php artisan migrate`
